@@ -1,0 +1,33 @@
+API_base_url = http://127.0.0.1:7980/
+API_base_url = http://localhost:7980
+
+###
+### USERS
+###
+# signup
+# methods: post
+{{API_base_url}}api/v1/users/signup
+
+# login
+# methods: post
+{{API_base_url}}api/v1/users/login
+http://localhost:7980/api/v1/users/login
+
+
+# get all users and update mine
+# methods: get
+# put/patch for logged in user 
+{{API_base_url}}api/v1/users
+
+# Post Cv
+# methods: get
+{{API_base_url}}api/v1/supportscv
+http://localhost:7990/api/v1/supportscv
+https://mrcv.onrender.com/api/v1/supportscv
+
+
+# get all videos and update mine
+# methods: get
+# put/patch for logged in user 
+{{API_base_url}}/api/v1/videos
+http://localhost:7980/api/v1/videos
