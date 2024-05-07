@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root{
+    --glowColor:rgb(255, 193, 5);
+}
+
+.logo, .menuIcon{
+    @apply bg-slate-500 border-slate-200 overflow-hidden  hover:border-fuchsia-600 border-2 font-bold text-center w-12 aspect-square rounded-full flex items-center justify-center
+}
+
+.NavButtons{
+    @apply bg-slate-500 border-b-2 p-1 m-1 font-bold rounded  hover:border-b-fuchsia-600 hover:border-b-2  hover:text-fuchsia-600 transition 
+}
+
+.mypaddingTop{
+    @apply pt-20
+}
+
+.glow{
+    transition: all 0.3s ease-in-out;
+}
+
+.glow:hover{
+    /* box-shadow: 0 0 25px rgb(206,71, 193); */
+    box-shadow: 0 0 25px var(--glowColor)
+}
+
+.img_glow{
+    box-shadow: 0 0 55px var(--glowColor)
+}
+
+.neno-button{
+    transition: all 0.3s ease-in-out;
+}
+
+.neno-button:hover{
+    box-shadow: 0 0 15px var(--glowColor)
+}
+
+.b_glow{
+    box-shadow: 0 0 10px var(--glowColor)
+}
+.techs{
+    @apply w-44 min-h-36 m-5 text-[26px] flex justify-center items-center font-semibold text-white rounded-3xl border-2 border-fuchsia-800 b_glow
+}
+
+.projects {
+    @apply w-44 min-h-36 m-5 text-[16px] flex justify-center items-center flex-col text-white rounded-3xl border-2 border-fuchsia-800 b_glow
+}
+
+.responsiveFontSize{
+    font-size: max(35px, min(55px, calc(5vw + 2vmin)));
+}
+
+.myaspect{
+    aspect-ratio: 16/12;
+}

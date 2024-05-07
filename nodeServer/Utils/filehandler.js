@@ -1,6 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         req.body.targetFilepath 
@@ -14,7 +15,14 @@ const storage = multer.diskStorage({
 });
 
 const filefilter = (req, file, cb) => {
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+    if (
+        file.mimetype === 'image/png' || 
+        file.mimetype === 'image/jpg' || 
+        file.mimetype === 'image/jpeg' ||
+        file.mimetype === 'video/mp4' || 
+        file.mimetype === 'video/mpeg' || 
+        file.mimetype === 'video/quicktime'
+    ){
         cb(null, true);
     } else {
         cb(null, false);

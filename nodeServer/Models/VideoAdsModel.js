@@ -12,7 +12,7 @@ const videoAdsSchema = new Schema({
     files: {
         type: [Object], // Assuming you want an array of objects
         required: true
-      }
+    },
     "createdBy": {
         type: mongoose.Schema.Types.Mixed,
         required: [true, 'Please complete the hidden field createdBy'],

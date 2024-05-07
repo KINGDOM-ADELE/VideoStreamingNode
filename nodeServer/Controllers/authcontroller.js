@@ -14,6 +14,7 @@ import SetUploadsfilePathHandler from "../Utils/SetUploadsfilePathHandler.js";
 import HTMLspecialChars from "../Utils/HTMLspecialChars.js";
 import UnlinkSingleFile from "../Utils/UnlinkSingleFile.js";
 
+
 let HOST = 'nohost'
 if(process.env.NODE_ENV === "development"){
     HOST = process.env.DEV_HOST
@@ -99,6 +100,7 @@ export const signup = asyncErrorHandler(async (req, res, next) => {
     let emailverificationMessage;
     let tries = 0
     let success = 0
+    let Subject = ''
     const sendAnEmail = async () => {
         tries += 1
         try{
@@ -124,7 +126,7 @@ export const signup = asyncErrorHandler(async (req, res, next) => {
     }
     console.log( `proceeding after attempts: ${tries} and success: ${success}`)
     if (success < 1){
-        return next(new CustomError(errormessage, 500))
+        // return next(new CustomError(errormessage, 500))
     }
     ///
 
@@ -851,7 +853,7 @@ export const deleteUser = asyncErrorHandler(async (req, res, next) => {
 });
 
 export const verifyEmail = asyncErrorHandler(async (req, res, next) => {
-  req.body = HTMLspecialChars(req.body);
+  // req.body = HTMLspecialChars(req.body);
   const cryptotoken = crypto
     .createHash("sha256")
     .update(req.params.token)
@@ -863,8 +865,8 @@ export const verifyEmail = asyncErrorHandler(async (req, res, next) => {
     next(error);
   }
 
+  user.emailVerified = true
   user.emailVerificationTokenExp = undefined;
-
   user.save(); // we want to allow validation
 
   limitedUser = limitUserDetailsServeFields(user);
@@ -1046,7 +1048,7 @@ export const filesTosupportcvsPath = asyncErrorHandler(
 
 export const filesToVideosPath = asyncErrorHandler(
   async (req, res, next) => {
-    SetUploadsfilePathHandler(req, `./uploads/videos`);
+    await SetUploadsfilePathHandler(req, `./uploads/videos`);
     next();
   },
 );

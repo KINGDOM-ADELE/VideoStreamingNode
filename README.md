@@ -1,3 +1,1 @@
-# MRSoftHubPortal
-# VideoStreamingNode
 # VideoStreamingNode

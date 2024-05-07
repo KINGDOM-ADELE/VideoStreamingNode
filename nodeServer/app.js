@@ -4,7 +4,10 @@ import path from 'path';
 import bodyParser from 'body-parser';
 
 const app = express();
+// Parse JSON request bodies
 app.use(express.json());
+// Parse text request bodies
+app.use(express.text());
 
 //// DEMO start
 // // Apply the dynamic rate limiter middleware to specific routes or all routes
@@ -40,6 +43,7 @@ app.use(bodyParser.json());
 
 // Require routers
 import authRouter from './Routes/authrouter.js';
+import rsaRouter from './Routes/rsarouter.js';
 import usercvRouter from './Routes/supportcvroutes.js';
 import videoRouter from './Routes/videostreamingroutes.js';
 
@@ -56,6 +60,7 @@ app.use(express.static('./public'));
 app.use(requestedAt);
 
 // USING THE ROUTES
+app.use('/api/v1/crypto', rsaRouter); // Mounting user/auth route
 app.use('/api/v1/users', authRouter); // Mounting user/auth route
 app.use('/api/v1/supportscv', usercvRouter); // Mounting supportcv route
 app.use('/api/v1/videos', videoRouter); // Mounting video route

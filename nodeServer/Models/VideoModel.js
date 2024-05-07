@@ -5,10 +5,10 @@ import AutoLogFile from '../Utils/AutoLogFile.js';
 const { Schema, model } = mongoose;
 
 const videosSchema = new Schema({
-    title: { type: String, required: [true, 'please enter your full name'], trim: true },
-    description: { type: String, unique: true, required: [true, 'Please enter email'], lowercase: true, trim: true },
+    title: { type: String, required: [true, 'please enter video title'], trim: true },
+    description: { type: String, required: [true, 'Please enter videodescription'], lowercase: true, trim: true },
     category : { type: String, required: [true, 'please enter video category'], trim: true },
-    keywords : { type: String, required: [true, 'please enter video category'], trim: true },
+    keywords : { type: String, required: [true, 'please enter video keywords'], trim: true },
     files: {
         type: [Object], // Assuming you want an array of objects
         required: true
@@ -16,6 +16,10 @@ const videosSchema = new Schema({
     promotions: {
         type: [Object]
     },
+
+    views: { type: Number, default: 0, trim: true },
+    like: { type: Number, default: 0, trim: true },
+    dislike: { type: Number, default: 0, trim: true },
     
     "createdBy": {
         type: mongoose.Schema.Types.Mixed,
