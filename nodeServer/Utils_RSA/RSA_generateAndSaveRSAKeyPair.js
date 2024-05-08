@@ -1,7 +1,9 @@
+const startTime = Date.now();
 import { generateKeyPair } from 'crypto';
 import fs from 'fs/promises'; // Assuming you're using Node.js 14 or later
 import { promisify } from 'util';
 import AsyncLock from 'async-lock';
+import logActivity from '../Utils/LogActivies.js';
 
 
 // Promisify generateKeyPair function
@@ -67,11 +69,14 @@ const generateRandomString = async () => {
     return result;
 }
 
+
+
 const MAX_KEYS = 3;
 const EXP_TIME = 1; // Number of days until expiration
 const KEYS_FILE_PATH = 'keys.json';
 
 const generateAndSaveRSAKeyPair = async () => {
+    let startTime = new Date()
     console.log('GeNeratiting new RSA keys, generateAndSaveRSAKeyPair called')
     try {
         // Generate RSA key pair
@@ -95,7 +100,12 @@ const generateAndSaveRSAKeyPair = async () => {
         await writeKeysToFile(KEYS_FILE_PATH, keys);
 
         console.log('Keys saved:', keys);
+
+        let report = 'New RSA key pairs generated'
+        logActivity('serverLog',startTime, report )
     } catch (error) {
+        let report = 'New RSA key pairs generation failed'
+        logActivity('serverLog',startTime, report )
         console.error('Error:', error);
     }
 };
