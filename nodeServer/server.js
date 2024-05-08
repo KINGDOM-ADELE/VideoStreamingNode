@@ -1,7 +1,33 @@
 // Import dependencies
+const startTime = Date.now();
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import app from './app.js';
+import logActivity from './Utils/LogActivies.js';
+
+import nodemon from 'nodemon';
+
+// Listen for the 'start' event
+nodemon.on('start', () => {
+  console.log('Server started');
+  let report = 'nodemon: Server started'
+  logActivity('serverLog',startTime, report )
+});
+
+// Listen for the 'quit' event
+nodemon.on('quit', () => {
+  console.log('nodemon: Server stopped');
+  let report = 'nodemon: Server stopped'
+  logActivity('serverLog',startTime, report )
+});
+
+// Listen for the 'restart' event
+nodemon.on('restart', (files) => {
+  console.log('nodemon: Server restarting due to changes:', files);
+  let report = `nodemon: Server restarting due to changes:, ${files}`
+  logActivity('serverLog',startTime, report )
+});
+
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
@@ -24,11 +50,17 @@ mongoose.connect(URL, {
     // useCreateIndex: true
 });
 
+
+
 const connection = mongoose.connection;
 connection.on('open', () => {
     console.log('Mongoose connected with mongoDB');
+    let report = 'Sever restarted'
+    logActivity('serverLog',startTime, report )
 });
 connection.on('error', (err) => {
+    let report = 'Sever restart failed'
+    logActivity('serverLog',startTime, report )
     console.error('MongoDB connection error:', err);
 });
 
@@ -51,6 +83,8 @@ process.on('SIGTERM', () => {
     console.log('SIGTERM received. Shutting down gracefully...');
     server.close(() => {
         console.log('Server closed.');
+        let report = 'SIGTERM received. Shutting down gracefully...'
+        logActivity('serverLog',startTime, report )
         process.exit(0);
     });
 });
